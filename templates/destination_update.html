@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}Update Tourist Destination{% endblock %}
+
+<link rel="stylesheet" href="{% static 'update.css' %}">
+
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Update Tourist Destination</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="place_name">Place Name</label>
+                <input type="text" id="place_name" name="place_name" value="{{ destination.place_name }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="weather">Weather</label>
+                <input type="text" id="weather" name="weather" value="{{ destination.weather }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" name="state" value="{{ destination.state }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="district">District</label>
+                <input type="text" id="district" name="district" value="{{ destination.district }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="google_map_link">Google Map Link</label>
+                <input type="url" id="google_map_link" name="google_map_link" value="{{ destination.google_map_link }}" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" class="form-control" required>{{ destination.description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image1">Image 1</label>
+                <input type="file" id="image1" name="image1" class="form-control-file">
+            </div>
+
+            <div class="form-group">
+                <label for="image2">Image 2</label>
+                <input type="file" id="image2" name="image2" class="form-control-file">
+            </div>
+
+            <div class="form-group">
+                <label for="image3">Image 3</label>
+                <input type="file" id="image3" name="image3" class="form-control-file">
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Update Destination</button>
+        </form>
+    </div>
+{% endblock %}

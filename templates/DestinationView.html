@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <div class="container">
+        <h1>Tourist Destinations</h1>
+        <div class="card-container">
+            {% for destination in data %}
+                <div class="card">
+                    <h3>{{ destination.place_name }}</h3>
+                    <p><strong>Weather:</strong> {{ destination.weather }}</p>
+                    <p><strong>Location:</strong> {{ destination.state }}, {{ destination.district }}</p>
+                    <p><a href="{{ destination.google_map_link }}" target="_blank">View on Google Maps</a></p>
+                    <p><strong>Description:</strong> {{ destination.description }}</p>
+                    
+                    <div class="images">
+                        {% if destination.image1 %}
+                            <img src="{{ destination.image1.url }}" alt="{{ destination.place_name }} - Image 1">
+                        {% endif %}
+                        {% if destination.image2 %}
+                            <img src="{{ destination.image2.url }}" alt="{{ destination.place_name }} - Image 2">
+                        {% endif %}
+                        {% if destination.image3 %}
+                            <img src="{{ destination.image3.url }}" alt="{{ destination.place_name }} - Image 3">
+                        {% endif %}
+                        {% if not destination.image1 and not destination.image2 and not destination.image3 %}
+                            <p>No images available</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Action buttons: Details, Update, Delete -->
+                    <div class="buttons">
+                        <a href="{% url 'destination_fetch' destination.id %}" class="btn btn-details">Details</a>
+                        <a href="{% url 'update_destination' destination.id %}" class="btn btn-update">Update</a>
+                        <a href="{% url 'destination_delete' destination.id %}" class="btn btn-delete" onclick="return confirm('Are you sure you want to delete this destination?');">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {% endblock %}

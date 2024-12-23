@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container my-5 mx-5 px-5">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-outline-primary">Create Destination</button>
+</form>
+
+{% if messages %}
+        <div class="mt-4">
+            <ul class="list-group">
+                {% for message in messages %}
+                    <li class="list-group-item list-group-item-info">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+</div>
+
+
+    {% endblock %}

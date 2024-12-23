@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+    <!-- Create Recipe Link -->
+    <div class="d-flex justify-content-end mb-3">
+        <a href="create_recipe/" class="btn btn-success">Create Destination</a>
+    </div>
+
+    <!-- Available Recipes -->
+    <h3>Available Destinations</h3>
+    {% if data %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for dest in data %}
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="{{ dest.images }}" class="card-img-top" alt="{{ dest.place_name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ dest.place_name }}</h5>
+                            <p class="card-text">Preparation Time: {{ recipe.Prep_time }}</p>
+                            <p class="card-text">Difficulty: 
+                                {% if recipe.Difficulty == 1 %}
+                                    Easy
+                                {% elif recipe.Difficulty == 2 %}
+                                    Medium
+                                {% else %}
+                                    Hard
+                                {% endif %}
+                            </p>
+                            <p class="card-text">Type: 
+                                {% if recipe.Vegetarian %}
+                                    Vegetarian
+                                {% else %}
+                                    Non-Vegetarian
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between">
+                            <a href="/recipe_fetch/{{ recipe.id }}" class="btn btn-info btn-sm">Details</a>
+                            <a href="/update_detail/{{ recipe.id }}" class="btn btn-warning btn-sm">Update</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">No recipes found. Try searching or adding a new recipe.</p>
+    {% endif %}
+
+
+    <!-- Delete Recipes -->
+    <h3 class="mt-5">Delete Recipes</h3>
+    {% for recipe in recipes %}
+        <div class="alert alert-danger d-flex justify-content-between align-items-center" role="alert">
+            <span>Do you want to delete <strong>{{ recipe.Name }}</strong>?</span>
+            <a href="/recipe_delete/{{ recipe.id }}" class="btn btn-danger btn-sm">Delete</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

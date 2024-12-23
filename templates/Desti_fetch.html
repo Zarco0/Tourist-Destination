@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <title>{{ destination.place_name }} - Details</title>
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <div class="container">
+        <h1>{{ destination.place_name }}</h1>
+        <p><strong>Weather:</strong> {{ destination.weather }}</p>
+        <p><strong>Location:</strong> {{ destination.state }}, {{ destination.district }}</p>
+        <p><strong>Description:</strong> {{ destination.description }}</p>
+        <p><a href="{{ destination.google_map_link }}" target="_blank">View on Google Maps</a></p>
+
+        <div class="images">
+            {% if destination.image1 %}
+                <img src="{{ destination.image1 }}" alt="{{ destination.place_name }} - Image 1">
+            {% endif %}
+            {% if destination.image2 %}
+                <img src="{{ destination.image2 }}" alt="{{ destination.place_name }} - Image 2">
+            {% endif %}
+            {% if destination.image3 %}
+                <img src="{{ destination.image3}}" alt="{{ destination.place_name }} - Image 3">
+            {% endif %}
+            {% if not destination.image1 and not destination.image2 and not destination.image3 %}
+                <p>No images available</p>
+            {% endif %}
+        </div>
+
+        <div class="buttons">
+            <a href="{% url 'update_destination' destination.id %}">Update</a>
+            <a href="{% url 'destination_delete' destination.id %}">Delete</a>
+        </div>
+
+        <a href="{% url 'DestinationView' %}" class="back-link">Back to List</a>
+    </div>
+
+    {% endblock %}
